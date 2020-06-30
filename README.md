@@ -15,6 +15,11 @@ and hence goes into the `plugins` directory.
 `gtamap_import.ms` and `gtamap_export.ms` have to be loaded after that
 and hence go into `scripts/startup`.
 
+Some commands for exporting are defined in `GTA.mcr`. That file goes
+into `AppData/Lcoal/Autodesk/YOURVERSION/enu/UI/usermacros`.
+The commands appear in the 'GTA' group and can be put on custom toolbars or
+quad menus.
+
 
 How to import
 =============
@@ -50,7 +55,16 @@ It will automatically create all necessary max files for the whole map.
 How to export
 =============
 
+Use the `SceneProperties` macro to set where to export to and the name of the scene.
+It will put all dffs and cols into their respective directories and
+generate an IDE and IPL pair.
+
 TODO: i should probably put something for that in the maxscript utility rollout.
+
+How to edit the map
+===================
+
+TODO: i should probably describe how the thing works in the first place
 
 Supported games
 ===============
