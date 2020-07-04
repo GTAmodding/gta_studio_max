@@ -366,6 +366,9 @@ fn pathLine line = (
 )
 
 fn twodfxLine line = (
+	fn stripQuotes str = (
+		substituteString str "\"" ""
+	)
 	id = readValue line
 	obj = FindDefinitionsWithID id
 	if obj.count == 0 then (
@@ -393,8 +396,8 @@ fn twodfxLine line = (
 			layer.addNode fx
 			fx.effect_color = (color r g b)
 			fx.effect_alpha = a
-			fx.lgt_coronatex = trimleft (readDelimitedString line ",")
-			fx.lgt_shadtex = trimleft (readDelimitedString line ",")
+			fx.lgt_coronatex = stripQuotes (trimleft (readDelimitedString line ","))
+			fx.lgt_shadtex = stripQuotes (trimleft (readDelimitedString line ","))
 			fx.lgt_dist = readValue line
 			fx.lgt_range = readValue line
 			fx.lgt_size = readValue line
