@@ -306,12 +306,13 @@ fn makeInstLine inst = (
 		attr = custAttributes.get inst gtaAttrib
 	)
 	ss = StringStream ""
+	rot = conjugate inst.rotation
 	format "%, %, %, %, %, %, %, %, %, %, %, %" \
 		attr.id (modelName name) \
 		(numStr inst.pos.x) (numStr inst.pos.y) (numStr inst.pos.z) \
 		(numStr inst.scale.x) (numStr inst.scale.y) (numStr inst.scale.z) \
-		(numStr inst.rotation.x) (numStr inst.rotation.y) \
-		(numStr inst.rotation.z) (numStr inst.rotation.w) to:ss
+		(numStr rot.x) (numStr rot.y) \
+		(numStr rot.z) (numStr rot.w) to:ss
 	ss as string
 )
 
