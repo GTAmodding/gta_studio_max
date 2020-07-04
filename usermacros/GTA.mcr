@@ -2,16 +2,42 @@ macroScript DefObj
 	category:"GTA"
 	toolTip:"Define map object"
 (
-	for o in $selection do
-		custAttributes.add o gtaAttrib
+	::MakeGtaObject $selection
 )
 
-macroScript UndefObj
+macroScript DefColl
 	category:"GTA"
-	toolTip:"Undefine map object"
+	toolTip:"Define collision object"
 (
-	for o in $selection do
-		custAttributes.delete o gtaAttrib
+	::MakeColObject $selection
+)
+
+macroScript MakeLight
+	category:"GTA"
+	toolTip:"Define 2dfx light"
+(
+	::MakeLight $selection
+)
+
+macroScript MakeParticle
+	category:"GTA"
+	toolTip:"Define 2dfx particle"
+(
+	::MakeParticle $selection
+)
+
+macroScript MakeAttractor
+	category:"GTA"
+	toolTip:"Define 2dfx attractor"
+(
+	::MakeAttractor $selection
+)
+
+macroScript UndefGTA
+	category:"GTA"
+	toolTip:"Undefine gta object"
+(
+	::RemoveGtaAttribs $selection
 )
 
 macroScript PrintIDE
@@ -19,7 +45,7 @@ macroScript PrintIDE
 	toolTip:"Print item defintions"
 (
 	out = StringStream ""
-	printDefinitions out
+	::printDefinitions out
 	format "%" (out as string)
 )
 
@@ -28,58 +54,67 @@ macroScript PrintIPL
 	toolTip:"Print item placement"
 (
 	out = StringStream ""
-	printInstances out
+	::printInstances out
 	format "%" (out as string)
 )
 
-macroScript DefColl
+macroScript PrintZone
 	category:"GTA"
-	toolTip:"Define collision object"
+	toolTip:"Print zones"
 (
-	for o in $selection do
-		makeColObject o
-)
-
-macroScript UndefColl
-	category:"GTA"
-	toolTip:"Undefine collision object"
-(
-	for o in $selection do
-		custAttributes.delete o colAttrib
+	out = StringStream ""
+	::printZones out
+	format "%" (out as string)
 )
 
 macroScript SelectInvalid
 	category:"GTA"
 	toolTip:"Select invalid map objects"
 (
-	select (getUndefinedObjs())
+	select (::getUndefinedObjs())
 )
 
 macroScript CheckIDs
 	category:"GTA"
 	toolTip:"Check assigned IDs"
 (
-	checkIDs()
+	::checkIDs()
 )
 
 macroScript AssignIDs
 	category:"GTA"
 	toolTip:"Auto-assign IDs"
 (
-	needSceneAttribs()
-	assignIDs rootnode.baseID
+	::needSceneAttribs()
+	::assignIDs rootnode.baseID
 )
 
 macroScript SceneProperties
 	category:"GTA"
 	toolTip:"Show Scene properties"
 (
-	openSceneRollout()
+	::openSceneRollout()
 )
 
 macroScript ExportScene
 	category:"GTA"
 	toolTip:"Export Scene"
 (
-	exportScene()
+	::exportScene()
+)
+
+macroScript ExportZones
+	category:"GTA"
+	toolTip:"Export Zones"
+(
+	filename = getSaveFilename()
+	if filename != undefined do
+		::saveZone filename
+)
+
+macroScript ToggleDefaultLights
+	category:"GTA"
+	toolTip:"Toggle Default Lights"
+(
+	max default lighting toggle 
 )

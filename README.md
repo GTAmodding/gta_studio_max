@@ -16,7 +16,7 @@ and hence goes into the `plugins` directory.
 and hence go into `scripts/startup`.
 
 Some commands for exporting are defined in `GTA.mcr`. That file goes
-into `AppData/Lcoal/Autodesk/YOURVERSION/enu/UI/usermacros`.
+into `AppData/Local/Autodesk/YOURVERSION/enu/UI/usermacros`.
 The commands appear in the 'GTA' group and can be put on custom toolbars or
 quad menus.
 

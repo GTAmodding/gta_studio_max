@@ -85,6 +85,10 @@ fn importMapDff name = (
 	importFile name #noPrompt using:RenderWare_model
 	dffImp.prepend = 0
 	selectImportedDff()
+	if selection.count == 0 do (
+		format "WARNING: no object '%'\n" name
+		return undefined
+	)
 	for s in selection do
 		s.name = substring s.name 2 -1	-- remove prepended !
 	x = rootOf $selection[1]
@@ -468,6 +472,7 @@ fn readIDE filename = (
 		i = findItem sections line
 		if i > 0 do (
 			sect = sections[i] as name
+			global pathtype = -1
 -- 			print sect
 			continue
 		)
@@ -1035,7 +1040,7 @@ utility GtaHelper "GTA map importer" (
 	button LoadIDE "Load IDE" width:140 align:#center
 	button LoadCOL "Load COL" width:140 align:#center
 	button CleanInst "Clean up Instances" width:140 align:#center
-	button XrefInst "Turn Xrefs into Instances" width:140 align:#center
+	button XrefInst "Turn Instances into Xrefs" width:140 align:#center
 	on dffPath pressed do (
 		path = getSavePath()
 		if path != undefined do
