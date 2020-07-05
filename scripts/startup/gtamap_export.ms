@@ -84,15 +84,13 @@ fn GetInstanceName inst = (
 	return inst.name
 )
 
-fn FindPathSegment obj = (
+fn FindPathSegments obj = (
 	if (classof obj) == PathSegment do
-		return obj
-	for c in obj.children do (
-		seg = FindPathSegment c
-		if (classof seg) == PathSegment do
-			return seg
-	)
-	undefined
+		return #(obj)
+	segs = #()
+	for c in obj.children do
+		segs += FindPathSegments c
+	segs
 )
 
 fn FirstInstance obj = (
@@ -369,8 +367,23 @@ fn printDeflist list out = (
 	format "end\n" to:out
 	format "path\n" to:out
 	for obj in list do (
-		seg = FindPathSegment obj
-		if seg != undefined do (
+		ncar = 0
+		nped = 0
+		segs = FindPathSegments obj
+		for seg in segs do (
+			if seg.type == 1 then (
+				if nped > 0 do (
+					format "WARNING: skipping extra ped paths on object '%'\n" obj.name
+					continue
+				)
+				nped += 1
+			) else if seg.type == 2 then (
+				if ncar > 0 do (
+					format "WARNING: skipping extra car paths on object '%'\n" obj.name
+					continue
+				)
+				ncar += 1
+			)
 			lines = MakePathLines seg
 			if lines != undefined do
 				for l in lines do
